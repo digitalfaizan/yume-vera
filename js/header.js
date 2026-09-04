@@ -24,9 +24,6 @@ document.getElementById("header").innerHTML = `
 
     <div class="header-actions">
 
-        <a href="#" class="search-link">
-            SEARCH
-        </a>
 
         <a href="cart.html" class="cart-link">
             CART
@@ -79,10 +76,6 @@ document.getElementById("header").innerHTML = `
 
             <a href="contact.html">
                 CONTACT
-            </a>
-
-            <a href="#">
-                SEARCH
             </a>
 
             <a href="cart.html">

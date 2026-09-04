@@ -148,6 +148,43 @@ if (!product) {
 
 
     /* =========================
+       CART HELPERS
+       (mirrors js/perfume.js so both
+       pages share the same yumeVeraCart
+       localStorage shape)
+    ========================= */
+
+    const CART_STORAGE_KEY = "yumeVeraCart";
+
+
+    function getCart() {
+
+        try {
+
+            return JSON.parse(
+                localStorage.getItem(CART_STORAGE_KEY)
+            ) || [];
+
+        } catch (error) {
+
+            return [];
+
+        }
+
+    }
+
+
+    function saveCart(cart) {
+
+        localStorage.setItem(
+            CART_STORAGE_KEY,
+            JSON.stringify(cart)
+        );
+
+    }
+
+
+    /* =========================
        BUY NOW
     ========================= */
 
@@ -155,25 +192,7 @@ if (!product) {
         .getElementById("buy-now")
         .addEventListener("click", () => {
 
-            const total =
-                product.price * quantity;
-
-            alert(
-                `${product.name}\nQuantity: ${quantity}\nTotal: ₹${total} + shipping`
-            );
-
-        });
-
-
-    /* =========================
-       ADD TO CART
-    ========================= */
-
-    document
-        .getElementById("add-to-cart")
-        .addEventListener("click", () => {
-
-            const cartItem = {
+            const cart = [{
 
                 id: product.id,
 
@@ -187,11 +206,71 @@ if (!product) {
 
                 quantity: quantity
 
-            };
+            }];
 
 
-            console.log("Added to cart:", cartItem);
+            saveCart(cart);
+
+            window.location.href = "checkout.html";
 
         });
+
+
+    /* =========================
+       ADD TO CART
+    ========================= */
+
+    const addToCartBtn = document.getElementById("add-to-cart");
+
+
+    addToCartBtn.addEventListener("click", () => {
+
+        const cart = getCart();
+
+        const existing = cart.find(
+            item => item.id === product.id
+        );
+
+
+        if (existing) {
+
+            existing.quantity += quantity;
+
+        } else {
+
+            cart.push({
+
+                id: product.id,
+
+                name: product.name,
+
+                price: product.price,
+
+                size: product.size,
+
+                image: product.images[0],
+
+                quantity: quantity
+
+            });
+
+        }
+
+
+        saveCart(cart);
+
+
+        const originalLabel = addToCartBtn.textContent;
+
+        addToCartBtn.textContent = "ADDED ✓";
+
+
+        setTimeout(() => {
+
+            addToCartBtn.textContent = originalLabel;
+
+        }, 1500);
+
+    });
 
 }
