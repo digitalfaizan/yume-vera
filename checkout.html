@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Checkout — Yume Vera</title>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="checkout.css">
+
+</head>
+
+
+<body>
+
+    <!-- HEADER -->
+
+    <div id="header"></div>
+
+
+    <main>
+
+        <!-- =========================
+             CHECKOUT — HAS ITEMS
+        ========================== -->
+
+        <section class="checkout-section" id="checkout-section">
+
+            <div class="checkout-container">
+
+                <!-- LEFT: FORM -->
+
+                <div class="checkout-form-col">
+
+                    <p class="section-label">
+                        CHECKOUT
+                    </p>
+
+                    <h1 class="checkout-title">
+                        COMPLETE YOUR ORDER
+                    </h1>
+
+                    <form id="checkout-form" novalidate>
+
+                        <!-- CUSTOMER INFORMATION -->
+
+                        <div class="checkout-block">
+
+                            <h2 class="checkout-block-title">
+                                CUSTOMER INFORMATION
+                            </h2>
+
+                            <div class="checkout-row">
+
+                                <div class="form-group">
+                                    <label for="firstName">FIRST NAME</label>
+                                    <input type="text" id="firstName" name="firstName" autocomplete="given-name">
+                                    <span class="form-error" id="error-firstName"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lastName">LAST NAME</label>
+                                    <input type="text" id="lastName" name="lastName" autocomplete="family-name">
+                                    <span class="form-error" id="error-lastName"></span>
+                                </div>
+
+                            </div>
+
+                            <div class="checkout-row">
+
+                                <div class="form-group">
+                                    <label for="email">EMAIL</label>
+                                    <input type="email" id="email" name="email" autocomplete="email">
+                                    <span class="form-error" id="error-email"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">PHONE NUMBER</label>
+                                    <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel">
+                                    <span class="form-error" id="error-phone"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- SHIPPING ADDRESS -->
+
+                        <div class="checkout-block">
+
+                            <h2 class="checkout-block-title">
+                                SHIPPING ADDRESS
+                            </h2>
+
+                            <div class="form-group">
+                                <label for="address">ADDRESS</label>
+                                <input type="text" id="address" name="address" autocomplete="address-line1">
+                                <span class="form-error" id="error-address"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="apartment">APARTMENT / SUITE (OPTIONAL)</label>
+                                <input type="text" id="apartment" name="apartment" autocomplete="address-line2">
+                            </div>
+
+                            <div class="checkout-row checkout-row-3">
+
+                                <div class="form-group">
+                                    <label for="city">CITY</label>
+                                    <input type="text" id="city" name="city" autocomplete="address-level2">
+                                    <span class="form-error" id="error-city"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="state">STATE</label>
+                                    <input type="text" id="state" name="state" autocomplete="address-level1">
+                                    <span class="form-error" id="error-state"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="pinCode">PIN CODE</label>
+                                    <input type="text" id="pinCode" name="pinCode" inputmode="numeric" autocomplete="postal-code">
+                                    <span class="form-error" id="error-pinCode"></span>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PAYMENT METHOD -->
+
+                        <div class="checkout-block">
+
+                            <h2 class="checkout-block-title">
+                                PAYMENT METHOD
+                            </h2>
+
+                            <div class="payment-options" id="payment-options">
+
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="upi">
+                                    <span class="payment-option-marker"></span>
+                                    <span class="payment-option-label">UPI</span>
+                                </label>
+
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="card">
+                                    <span class="payment-option-marker"></span>
+                                    <span class="payment-option-label">CARD</span>
+                                </label>
+
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="cod">
+                                    <span class="payment-option-marker"></span>
+                                    <span class="payment-option-label">CASH ON DELIVERY</span>
+                                </label>
+
+                            </div>
+
+                            <span class="form-error" id="error-paymentMethod"></span>
+
+                            <!--
+                                PAYMENT GATEWAY INTEGRATION POINT (UPI)
+                                Real Razorpay/Cashfree UPI collect flow
+                                gets wired into #panel-upi.
+                            -->
+                            <div class="payment-gateway-panel" id="panel-upi" hidden>
+                                <p class="payment-gateway-note">
+                                    You'll be prompted to complete your UPI payment
+                                    securely after placing the order.
+                                </p>
+                            </div>
+
+                            <!--
+                                PAYMENT GATEWAY INTEGRATION POINT (CARD)
+                                Real Razorpay/Cashfree card checkout widget
+                                gets wired into #panel-card.
+                            -->
+                            <div class="payment-gateway-panel" id="panel-card" hidden>
+                                <p class="payment-gateway-note">
+                                    A secure card payment window will open
+                                    after you place the order.
+                                </p>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary checkout-submit-btn"
+                            id="place-order-btn"
+                        >
+                            PLACE ORDER
+                        </button>
+
+                    </form>
+
+                </div>
+
+
+                <!-- RIGHT: ORDER SUMMARY -->
+
+                <aside class="checkout-summary">
+
+                    <h2 class="checkout-summary-title">
+                        ORDER SUMMARY
+                    </h2>
+
+                    <div class="checkout-summary-items" id="checkout-summary-items">
+                        <!-- Order items injected by js/checkout.js -->
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="checkout-subtotal">₹0</span>
+                    </div>
+
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span id="checkout-shipping">₹0</span>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-row summary-total">
+                        <span>Total</span>
+                        <span id="checkout-total">₹0</span>
+                    </div>
+
+                </aside>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             ORDER CONFIRMATION
+        ========================== -->
+
+        <section class="checkout-confirmation" id="checkout-confirmation" hidden>
+
+            <p class="section-label">
+                ORDER RECEIVED
+            </p>
+
+            <h1>
+                THANK YOU.
+            </h1>
+
+            <p class="confirmation-text">
+                Thank you for choosing Yume Vera.
+                Your order has been received and will be
+                processed shortly.
+            </p>
+
+            <p class="confirmation-order-number" id="confirmation-order-number"></p>
+
+            <a href="index.html" class="btn btn-primary">
+                BACK TO HOME
+            </a>
+
+        </section>
+
+
+        <!-- =========================
+             CHECKOUT — EMPTY CART
+        ========================== -->
+
+        <section class="checkout-empty" id="checkout-empty" hidden>
+
+            <p class="section-label">
+                CHECKOUT
+            </p>
+
+            <h1>
+                YOUR CART<br>
+                IS EMPTY.
+            </h1>
+
+            <p class="cart-empty-text">
+                Add a fragrance to your bag before checking out.
+            </p>
+
+            <a href="perfumes.html" class="btn btn-primary">
+                EXPLORE PERFUMES
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <div id="footer"></div>
+
+
+    <script src="js/products.js"></script>
+    <script src="js/checkout.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+
+</body>
+
+</html>
