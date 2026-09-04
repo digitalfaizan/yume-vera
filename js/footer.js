@@ -21,13 +21,11 @@ footer.innerHTML = `
 
                 <h3>Shop</h3>
 
-                <a href="perfumes.html">
+                <a href="perfume.html">
                     Perfumes
                 </a>
 
-                <a href="create-your-perfume.html">
-                    Create Your Perfume
-                </a>
+             
 
             </div>
 

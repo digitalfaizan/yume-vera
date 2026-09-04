@@ -1,109 +1,169 @@
-const header = document.getElementById("header");
+document.getElementById("header").innerHTML = `
 
-header.innerHTML = `
+<header class="site-header">
 
-    <header class="site-header">
+    <a href="index.html" class="header-logo">
+        YUME VERA
+    </a>
 
-        <nav class="navbar">
 
-            <a href="index.html" class="logo">
-                YUME VERA
+    <nav class="desktop-nav">
+
+        <a href="index.html">HOME</a>
+
+        <a href="perfume.html">PERFUMES</a>
+
+        
+
+        <a href="about.html">ABOUT</a>
+
+        <a href="contact.html">CONTACT</a>
+
+    </nav>
+
+
+    <div class="header-actions">
+
+        <a href="#" class="search-link">
+            SEARCH
+        </a>
+
+        <a href="cart.html" class="cart-link">
+            CART
+        </a>
+
+    </div>
+
+
+    <!-- MOBILE MENU BUTTON -->
+
+    <button
+        class="hamburger"
+        id="hamburger"
+        type="button"
+        aria-label="Open menu"
+    >
+
+        <span></span>
+        <span></span>
+
+    </button>
+
+
+    <!-- MOBILE MENU -->
+
+    <div class="mobile-menu" id="mobile-menu">
+
+        <button
+            class="mobile-menu-close"
+            id="mobile-menu-close"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <nav>
+
+            <a href="index.html">
+                HOME
             </a>
 
+            <a href="perfume.html">
+                PERFUMES
+            </a>
 
-            <!-- DESKTOP NAV -->
+            <a href="about.html">
+                ABOUT
+            </a>
 
-            <div class="nav-links">
+            <a href="contact.html">
+                CONTACT
+            </a>
 
-                <a href="index.html">Home</a>
+            <a href="#">
+                SEARCH
+            </a>
 
-                <a href="perfumes.html">Perfumes</a>
-
-                <a href="create-your-perfume.html">
-                    Create Your Perfume
-                </a>
-
-                <a href="about.html">About</a>
-
-                <a href="contact.html">Contact</a>
-
-            </div>
-
-
-            <!-- DESKTOP ACTIONS -->
-
-            <div class="nav-actions">
-
-                <button class="search-btn">
-                    Search
-                </button>
-
-                <a href="cart.html" class="cart-btn">
-                    Cart
-                </a>
-
-            </div>
-
-
-            <!-- MOBILE MENU BUTTON -->
-
-            <button class="hamburger" aria-label="Open menu">
-
-                <span></span>
-                <span></span>
-                <span></span>
-
-            </button>
+            <a href="cart.html">
+                CART
+            </a>
 
         </nav>
 
+    </div>
 
-        <!-- MOBILE MENU -->
-
-        <div class="mobile-menu">
-
-            <div class="mobile-menu-links">
-
-                <a href="index.html">Home</a>
-
-                <a href="perfumes.html">Perfumes</a>
-
-                <a href="create-your-perfume.html">
-                    Create Your Perfume
-                </a>
-
-                <a href="about.html">About</a>
-
-                <a href="contact.html">Contact</a>
-
-                <a href="cart.html">Cart</a>
-
-            </div>
-
-        </div>
-
-    </header>
+</header>
 
 `;
 
+/* =================================
+   MOBILE MENU
+================================= */
 
-/* =========================
-   SCROLL HEADER
-========================= */
+const hamburger =
+    document.getElementById("hamburger");
+
+const mobileMenu =
+    document.getElementById("mobile-menu");
+
+const mobileClose =
+    document.getElementById("mobile-menu-close");
+
+
+hamburger.addEventListener("click", () => {
+
+    mobileMenu.classList.add("active");
+
+    document.body.classList.add("menu-open");
+
+});
+
+
+mobileClose.addEventListener("click", () => {
+
+    mobileMenu.classList.remove("active");
+
+    document.body.classList.remove("menu-open");
+
+});
+
+
+/* Close menu after clicking a link */
+
+mobileMenu
+    .querySelectorAll("a")
+    .forEach(link => {
+
+        link.addEventListener("click", () => {
+
+            mobileMenu.classList.remove("active");
+
+            document.body.classList.remove("menu-open");
+
+        });
+
+    });
+
+    /* =================================
+   HIDE HEADER ON SCROLL DOWN
+   SHOW HEADER ON SCROLL UP
+================================= */
 
 let lastScrollY = window.scrollY;
 
 window.addEventListener("scroll", () => {
 
-    const siteHeader = document.querySelector(".site-header");
-
     const currentScrollY = window.scrollY;
 
 
+    /* Always show header at very top */
+
     if (currentScrollY <= 20) {
 
-        siteHeader.classList.remove("scrolled");
-        siteHeader.classList.remove("hidden");
+        document
+            .querySelector(".site-header")
+            .classList.remove("header-hidden");
 
         lastScrollY = currentScrollY;
 
@@ -111,34 +171,28 @@ window.addEventListener("scroll", () => {
     }
 
 
+    /* Scrolling DOWN */
+
     if (currentScrollY > lastScrollY) {
 
-        siteHeader.classList.add("hidden");
+        document
+            .querySelector(".site-header")
+            .classList.add("header-hidden");
 
-    } else if (currentScrollY < lastScrollY) {
+    }
 
-        siteHeader.classList.remove("hidden");
-        siteHeader.classList.add("scrolled");
+
+    /* Scrolling UP */
+
+    else if (currentScrollY < lastScrollY) {
+
+        document
+            .querySelector(".site-header")
+            .classList.remove("header-hidden");
 
     }
 
 
     lastScrollY = currentScrollY;
-
-});
-
-
-/* =========================
-   MOBILE MENU
-========================= */
-
-const hamburger = document.querySelector(".hamburger");
-const mobileMenu = document.querySelector(".mobile-menu");
-
-hamburger.addEventListener("click", () => {
-
-    hamburger.classList.toggle("active");
-
-    mobileMenu.classList.toggle("active");
 
 });
